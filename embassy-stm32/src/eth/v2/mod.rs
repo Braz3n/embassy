@@ -424,7 +424,13 @@ impl<'d, T: Instance, P: Phy> Ethernet<'d, T, P> {
 
         mac.maccr().modify(|w| {
             w.set_ipg(0b000); // 96 bit times
+            // Strip padding and FCS from received frames. ACS only covers 802.3
+            // length-field frames (length <= 1500); CST is what strips the FCS off
+            // EtherType frames, which is everything we actually care about. Without it
+            // the reported frame length includes the 4-byte FCS, and a full 1514-byte
+            // frame no longer fits in a `PacketBuf`.
             w.set_acs(true);
+            w.set_cst(true);
             #[cfg(eth_v2a)]
             w.set_ps(true);
             w.set_fes(true);
@@ -518,18 +524,13 @@ impl<'d, T: Instance, P: Phy> Ethernet<'d, T, P> {
             w.set_rxpbl(1); // 32 ?
             #[cfg(eth_v2a)]
             w.set_rxpbl(32);
-            w.set_rbsz(RX_BUFFER_SIZE as u16);
+            w.set_rbsz(embassy_net_driver::PACKET_BUF_SIZE as u16);
         });
 
         let mut this = Self {
             _peri: peri,
             wake_guard: T::RCC_INFO.wake_guard().into(),
-            tx: TDesRing::new(
-                &mut queue.tx_desc,
-                &mut queue.tx_buf,
-                #[cfg(feature = "ptp")]
-                &mut queue.tx_id,
-            ),
+            tx: TDesRing::new(&mut queue.tx_desc, &mut queue.tx_buf),
             rx: RDesRing::new(&mut queue.rx_desc, &mut queue.rx_buf),
             _pins: pins,
             phy,

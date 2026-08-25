@@ -28,8 +28,25 @@ build = [
 
 [dependencies]
 defmt = { version = "1.0.1", optional = true }
+xarxa-driver = { git = "https://github.com/embassy-rs/xarxa", rev = "f44ed270fa9b3a5e545fbc7205c1432c21221c78" }
 
 [features]
-defmt = ["dep:defmt"]
-packetmeta-id = []
-packetmeta-timestamp = ["packetmeta-id"]
+defmt = ["dep:defmt", "xarxa-driver/defmt"]
+## Enable the `PacketMeta::id` field.
+packetmeta-id = ["xarxa-driver/packetmeta-id"]
+## Enable the `PacketMeta::timestamp` and `PacketMeta::request_timestamp` fields, and `Driver::poll_tx_timestamp`.
+packetmeta-timestamp = ["packetmeta-id", "xarxa-driver/packetmeta-timestamp"]
+
+#! Minimum alignment of packet buffers. A driver whose DMA engine needs aligned
+#! buffers (and a buffer size that is a multiple of its bus width) enables the
+#! feature matching its requirement. The largest one enabled wins.
+## Align packet buffers to 2 bytes.
+packet-buf-align-2 = ["xarxa-driver/packet-buf-align-2"]
+## Align packet buffers to 4 bytes.
+packet-buf-align-4 = ["xarxa-driver/packet-buf-align-4"]
+## Align packet buffers to 8 bytes.
+packet-buf-align-8 = ["xarxa-driver/packet-buf-align-8"]
+## Align packet buffers to 16 bytes.
+packet-buf-align-16 = ["xarxa-driver/packet-buf-align-16"]
+## Align packet buffers to 32 bytes.
+packet-buf-align-32 = ["xarxa-driver/packet-buf-align-32"]

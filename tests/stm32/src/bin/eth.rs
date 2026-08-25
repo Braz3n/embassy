@@ -33,7 +33,7 @@ bind_interrupts!(struct Irqs {
 type Device = Ethernet<'static, ETH, GenericPhy<Sma<'static, ETH_SMA>>>;
 
 #[embassy_executor::task]
-async fn net_task(mut runner: embassy_net::Runner<'static, Device>) -> ! {
+async fn net_task(mut runner: embassy_net::Runner<'static>) -> ! {
     runner.run().await
 }
 
@@ -105,7 +105,7 @@ async fn main(spawner: Spawner) {
     //});
 
     // Init network stack
-    static RESOURCES: StaticCell<StackResources<2>> = StaticCell::new();
+    static RESOURCES: StaticCell<StackResources<Device>> = StaticCell::new();
     let (stack, runner) = embassy_net::new(device, config, RESOURCES.init(StackResources::new()), seed);
 
     #[cfg(feature = "stop")]

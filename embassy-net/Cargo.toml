@@ -20,7 +20,6 @@ build = [
     {target = "thumbv7em-none-eabi", features = ["defmt", "dhcpv4", "dns", "medium-ethernet", "tcp", "udp"]},
     {target = "thumbv7em-none-eabi", features = ["defmt", "dhcpv4", "dhcpv4-hostname", "dns", "medium-ethernet", "tcp", "udp"]},
     {target = "thumbv7em-none-eabi", features = ["defmt", "dhcpv4", "dhcpv4-hostname", "dns", "medium-ethernet", "slaac", "tcp", "udp"]},
-    {target = "thumbv7em-none-eabi", features = ["defmt", "dhcpv4", "dhcpv4-ntp", "dns", "medium-ethernet", "tcp", "udp"]},
     {target = "thumbv7em-none-eabi", features = ["defmt", "dns", "medium-ethernet", "proto-ipv6", "tcp", "udp"]},
     {target = "thumbv7em-none-eabi", features = ["defmt", "dns", "medium-ethernet", "proto-ipv6", "slaac", "tcp", "udp"]},
     {target = "thumbv7em-none-eabi", features = ["defmt", "dns", "medium-ieee802154", "proto-ipv6", "tcp", "udp"]},
@@ -28,31 +27,18 @@ build = [
     {target = "thumbv7em-none-eabi", features = ["defmt", "dns", "medium-ethernet", "proto-ipv4", "proto-ipv6", "tcp", "udp"]},
     {target = "thumbv7em-none-eabi", features = ["defmt", "dns", "medium-ip", "proto-ipv4", "proto-ipv6", "tcp", "udp"]},
     {target = "thumbv7em-none-eabi", features = ["defmt", "dns", "medium-ethernet", "medium-ip", "proto-ipv4", "proto-ipv6", "tcp", "udp"]},
-    {target = "thumbv7em-none-eabi", features = ["defmt", "dns", "medium-ethernet", "medium-ieee802154", "medium-ip", "proto-ipv4", "proto-ipv6", "tcp", "udp"]},
+    {target = "thumbv7em-none-eabi", features = ["defmt", "dns", "medium-ethernet", "medium-ieee802154", "medium-ip", "proto-ipv4", "proto-ipv6", "tcp", "udp", "raw"]},
     {target = "thumbv7em-none-eabi", features = ["defmt", "dns", "medium-ethernet", "medium-ieee802154", "medium-ip", "proto-ipv4", "proto-ipv6", "tcp", "udp", "packetmeta-id", "packetmeta-timestamp"]},
-    # Xtensa builds
-    {group = "xtensa", build-std = ["core", "alloc"],  target = "xtensa-esp32-none-elf", features = ["defmt", "tcp", "udp", "dns", "proto-ipv4", "medium-ethernet", "packet-trace"]},
-    {group = "xtensa", build-std = ["core", "alloc"],  target = "xtensa-esp32-none-elf", features = ["defmt", "tcp", "udp", "dns", "proto-ipv4", "multicast", "medium-ethernet"]},
-    {group = "xtensa", build-std = ["core", "alloc"],  target = "xtensa-esp32-none-elf", features = ["defmt", "tcp", "udp", "dns", "dhcpv4", "medium-ethernet"]},
-    {group = "xtensa", build-std = ["core", "alloc"],  target = "xtensa-esp32-none-elf", features = ["defmt", "tcp", "udp", "dns", "dhcpv4", "medium-ethernet", "dhcpv4-hostname"]},
-    {group = "xtensa", build-std = ["core", "alloc"],  target = "xtensa-esp32-none-elf", features = ["defmt", "tcp", "udp", "dns", "proto-ipv6", "medium-ethernet"]},
-    {group = "xtensa", build-std = ["core", "alloc"],  target = "xtensa-esp32-none-elf", features = ["defmt", "tcp", "udp", "dns", "proto-ipv6", "medium-ieee802154"]},
-    {group = "xtensa", build-std = ["core", "alloc"],  target = "xtensa-esp32-none-elf", features = ["defmt", "tcp", "udp", "dns", "proto-ipv6", "medium-ethernet", "medium-ieee802154"]},
-    {group = "xtensa", build-std = ["core", "alloc"],  target = "xtensa-esp32-none-elf", features = ["defmt", "tcp", "udp", "dns", "proto-ipv6", "medium-ethernet"]},
-    {group = "xtensa", build-std = ["core", "alloc"],  target = "xtensa-esp32-none-elf", features = ["defmt", "tcp", "udp", "dns", "proto-ipv4", "proto-ipv6", "medium-ethernet"]},
-    {group = "xtensa", build-std = ["core", "alloc"],  target = "xtensa-esp32-none-elf", features = ["defmt", "tcp", "udp", "dns", "proto-ipv4", "proto-ipv6", "medium-ip"]},
-    {group = "xtensa", build-std = ["core", "alloc"],  target = "xtensa-esp32-none-elf", features = ["defmt", "tcp", "udp", "dns", "proto-ipv4", "proto-ipv6", "medium-ip", "medium-ethernet"]},
-    {group = "xtensa", build-std = ["core", "alloc"],  target = "xtensa-esp32-none-elf", features = ["defmt", "tcp", "udp", "dns", "proto-ipv4", "proto-ipv6", "medium-ip", "medium-ethernet", "medium-ieee802154"]},
 ]
 
 [package.metadata.embassy_docs]
 src_base = "https://github.com/embassy-rs/embassy/blob/embassy-net-v$VERSION/embassy-net/src/"
 src_base_git = "https://github.com/embassy-rs/embassy/blob/$COMMIT/embassy-net/src/"
-features = ["defmt", "tcp", "udp", "raw", "dns", "icmp", "dhcpv4", "proto-ipv6", "medium-ethernet", "medium-ip", "medium-ieee802154", "multicast", "dhcpv4-hostname", "packetmeta-id"]
+features = ["defmt", "tcp", "udp", "raw", "dns", "dhcpv4", "proto-ipv6", "medium-ethernet", "medium-ip", "medium-ieee802154", "multicast", "dhcpv4-hostname", "packetmeta-id"]
 target = "thumbv7em-none-eabi"
 
 [package.metadata.docs.rs]
-features = ["defmt", "tcp", "udp", "raw", "dns", "icmp", "dhcpv4", "proto-ipv6", "medium-ethernet", "medium-ip", "medium-ieee802154", "multicast", "dhcpv4-hostname", "packetmeta-id"]
+features = ["defmt", "tcp", "udp", "raw", "dns", "dhcpv4", "proto-ipv6", "medium-ethernet", "medium-ip", "medium-ieee802154", "multicast", "dhcpv4-hostname", "packetmeta-id"]
 
 [features]
 default = ["auto-icmp-echo-reply"]
@@ -60,39 +46,39 @@ default = ["auto-icmp-echo-reply"]
 ## Enable defmt
 defmt = ["dep:defmt", "xarxa/defmt", "embassy-net-driver/defmt", "embassy-time/defmt", "heapless/defmt", "defmt?/ip_in_core"]
 ## Enable log
-log = ["dep:log"]
+log = ["dep:log", "xarxa/log"]
 
 ## Trace all raw received and transmitted packets using defmt or log.
-packet-trace = []
+packet-trace = ["xarxa/packet-log"]
 
-#! Many of the following feature flags are re-exports of xarxa feature flags. See 
+#! Many of the following feature flags are re-exports of xarxa feature flags. See
 #! the [xarxa feature flag documentation](https://github.com/embassy-rs/xarxa#feature-flags)
-#! for more details
+#! for more details.
+#!
+#! The size knobs of the stack (packet pool size, socket counts, queue depths, ...)
+#! are cargo features of `xarxa` too, named `<knob>-<N>`. To change one, add a direct
+#! dependency on `xarxa` and enable the feature there.
 
-## Enable ICMP support
-icmp = ["xarxa/socket-icmp"]
 ## ICMP echo request auto reply
-auto-icmp-echo-reply = ["xarxa/auto-icmp-echo-reply"]
+auto-icmp-echo-reply = ["xarxa/icmp-ping-reply"]
 ## Enable UDP support
-udp = ["xarxa/socket-udp"]
+udp = ["xarxa/udp"]
 ## Enable Raw support
-raw = ["xarxa/socket-raw"]
+raw = ["xarxa/raw"]
 ## Enable TCP support
-tcp = ["xarxa/socket-tcp"]
+tcp = ["xarxa/tcp", "xarxa/tcp-listener"]
 ## Enable DNS support
-dns = ["xarxa/socket-dns", "xarxa/proto-dns"]
+dns = ["xarxa/dns"]
 ## Enable mDNS support
-mdns = ["dns", "xarxa/socket-mdns"]
+mdns = ["dns", "xarxa/mdns"]
 ## Enable DHCPv4 support
-dhcpv4 = ["proto-ipv4", "medium-ethernet", "xarxa/socket-dhcpv4"]
+dhcpv4 = ["proto-ipv4", "medium-ethernet", "xarxa/dhcpv4"]
 ## Enable DHCPv4 support with hostname
 dhcpv4-hostname = ["dhcpv4"]
-## Enable parsing of the NTP servers (DHCP option 42) from the DHCP reply
-dhcpv4-ntp = ["dhcpv4"]
 ## Enable IPv4 support
-proto-ipv4 = ["xarxa/proto-ipv4"]
+proto-ipv4 = ["xarxa/ipv4", "xarxa/ipv4-fragmentation", "xarxa/ipv4-reassembly"]
 ## Enable IPv6 support
-proto-ipv6 = ["xarxa/proto-ipv6"]
+proto-ipv6 = ["xarxa/ipv6"]
 ## Enable the Ethernet medium
 medium-ethernet = ["xarxa/medium-ethernet"]
 ## Enable the IP medium
@@ -102,29 +88,22 @@ medium-ieee802154 = ["xarxa/medium-ieee802154"]
 ## Enable multicast support (for both ipv4 and/or ipv6 if enabled)
 multicast = ["xarxa/multicast"]
 ## Enable stateless address autoconfiguration for ipv6
-slaac = ["proto-ipv6", "multicast", "xarxa/proto-ipv6-slaac"]
-## Enable xarxa std feature (necessary if using "managed" crate std feature)
+slaac = ["proto-ipv6", "xarxa/slaac"]
+## Enable xarxa std feature
 std = ["xarxa/std"]
-## Enable xarxa alloc feature (necessary if using "managed" crate alloc feature)
+## Enable xarxa alloc feature
 alloc = ["xarxa/alloc"]
 ## Enable xarxa packetmeta-id feature
 packetmeta-id = [ "xarxa/packetmeta-id", "embassy-net-driver/packetmeta-id" ]
-packetmeta-timestamp = [ "xarxa/packetmeta-timestamp", "embassy-net-driver/packetmeta-timestamp" ]
+## Enable xarxa packetmeta-timestamp feature
+packetmeta-timestamp = [ "packetmeta-id", "xarxa/packetmeta-timestamp", "embassy-net-driver/packetmeta-timestamp" ]
 
 [dependencies]
 
 defmt = { version = "1.0.1", optional = true }
 log = { version = "0.4.14", optional = true }
 
-xarxa = {
-    git = "https://github.com/embassy-rs/xarxa",
-    rev = "1f332ac32cc33d86aefc8e1c1a9749b93234a6de",
-    default-features = false,
-    features = [
-        "socket",
-        "async",
-    ]
-}
+xarxa = { git = "https://github.com/embassy-rs/xarxa", rev = "f44ed270fa9b3a5e545fbc7205c1432c21221c78", default-features = false, features = ["async"] }
 
 embassy-net-driver = { version = "0.2.0", path = "../embassy-net-driver" }
 embassy-time = { version = "0.5.1", path = "../embassy-time" }
@@ -132,7 +111,6 @@ embassy-futures = { version = "0.1.2", path = "../embassy-futures" }
 embassy-sync = { version = "0.8.0", path = "../embassy-sync" }
 embedded-io-async = { version = "0.7.0" }
 
-managed = { version = "0.8.0", default-features = false, features = [ "map" ] }
 heapless = { version = "0.9", default-features = false }
 embedded-nal-async = "0.9.0"
 document-features = "0.2.7"

@@ -5,9 +5,8 @@
 //! not using `embedded-nal-async`.
 
 use heapless::Vec;
-pub use xarxa::socket::dns::{DnsQuery, Socket};
-pub(crate) use xarxa::socket::dns::{GetQueryResultError, StartQueryError};
-pub use xarxa::wire::{DnsQueryType, IpAddress};
+pub(crate) use xarxa::dns::{GetQueryResultError, StartQueryError};
+pub use xarxa::wire::{DnsType as DnsQueryType, IpAddress};
 
 use crate::Stack;
 
@@ -61,7 +60,7 @@ impl<'a> DnsSocket<'a> {
         &self,
         name: &str,
         qtype: DnsQueryType,
-    ) -> Result<Vec<IpAddress, { xarxa::config::DNS_MAX_RESULT_COUNT }>, Error> {
+    ) -> Result<Vec<IpAddress, { xarxa::dns::DNS_MAX_RESULT_COUNT }>, Error> {
         self.stack.dns_query(name, qtype).await
     }
 }
