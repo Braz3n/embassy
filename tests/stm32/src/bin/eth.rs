@@ -7,7 +7,7 @@ mod common;
 use common::*;
 use defmt_rtt as _;
 use embassy_executor::Spawner;
-use embassy_net::StackResources;
+use embassy_net::{InterfaceStorage, StackResources};
 use embassy_stm32::eth::{Ethernet, GenericPhy, PacketQueue, Sma};
 use embassy_stm32::peripherals::{ETH, ETH_SMA};
 #[cfg(feature = "stop")]
@@ -105,8 +105,12 @@ async fn main(spawner: Spawner) {
     //});
 
     // Init network stack
-    static RESOURCES: StaticCell<StackResources<Device>> = StaticCell::new();
-    let (stack, runner) = embassy_net::new(device, config, RESOURCES.init(StackResources::new()), seed);
+    static RESOURCES: StaticCell<StackResources> = StaticCell::new();
+    let (stack, runner) = embassy_net::new(RESOURCES.init(StackResources::new()), seed);
+
+    // Add the ethernet interface to the stack.
+    static ETH: StaticCell<InterfaceStorage<'static, Device>> = StaticCell::new();
+    let eth = stack.add_interface(ETH.init(InterfaceStorage::new(device)), config);
 
     #[cfg(feature = "stop")]
     let _guard = WakeGuard::new(StopMode::Stop1);
@@ -115,7 +119,7 @@ async fn main(spawner: Spawner) {
     spawner.spawn(unwrap!(net_task(runner)));
 
     perf_client::run(
-        stack,
+        eth,
         perf_client::Expected {
             down_kbps: 1000,
             up_kbps: 1000,

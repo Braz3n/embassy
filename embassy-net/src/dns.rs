@@ -84,7 +84,7 @@ impl<'a> embedded_nal_async::Dns for DnsSocket<'a> {
                 #[cfg(not(feature = "proto-ipv6"))]
                 let v6_first = false;
                 #[cfg(feature = "proto-ipv6")]
-                let v6_first = self.stack.config_v6().is_some();
+                let v6_first = self.stack.any_config_v6();
                 match v6_first {
                     true => (DnsQueryType::Aaaa, Some(DnsQueryType::A)),
                     false => (DnsQueryType::A, Some(DnsQueryType::Aaaa)),
